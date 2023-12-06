@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function validateForm() {
+            var username = document.forms["myForm"]["username"].value;
+            var password = document.forms["myForm"]["password"].value;
+            var rePassword = document.forms["myForm"]["re-password"].value;
+
+            if (username == "" || password == "" || rePassword == "") {
+                alert("모든 필드를 입력해주세요.");
+                return false;
+            }
+            if (password != rePassword){
+                alert("비밀번호가 일치하지 않습니다.");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<form th:action method="post" onsubmit="return validateForm()" name="myForm">
+    <div>회원 가입화면</div>
+    이름 : <input type="text" name="username" placeholder="이름 입력">
+    비밀번호 : <input type="password" name="password" placeholder="비밀번호 입력">
+    비밀번호 재확인 : <input type="password" name="re-password" placeholder="비밀번호 재입력">
+    <button type="submit">가입</button>
+</form>
+</body>
+</html>
