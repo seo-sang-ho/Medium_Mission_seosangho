@@ -1,1 +1,11 @@
-메인
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<body>
+<div>
+    <h1 th:if="${#authentication?.name != null}" th:text="${#authentication?.name}"></h1>
+    <form th:action="@{/member/logout}" method="post">
+        <button type="submit" value="로그아웃">logout</button>
+    </form>
+
+</div>
+</body>
+</html>
