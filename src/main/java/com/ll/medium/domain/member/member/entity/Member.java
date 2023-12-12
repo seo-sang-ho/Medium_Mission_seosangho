@@ -1,38 +1,24 @@
 package com.ll.medium.domain.member.member.entity;
 
+import com.ll.medium.global.jpa.BaseEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.List;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
+@SuperBuilder
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-@AllArgsConstructor
-@EqualsAndHashCode
-public class Member {
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @EqualsAndHashCode.Include
-    private Long id;
+@ToString(callSuper = true)
+public class Member extends BaseEntity{
     private String username;
     private String password;
-
-    public Member() {
-    }
-
-    public Member(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 
     public boolean isAdmin(){
         return username.equals("admin");

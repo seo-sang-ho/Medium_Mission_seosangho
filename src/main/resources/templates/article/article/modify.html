@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 작성 페이지</title>
+    <link href="https://cdn.tailwindcss.com/3.0.0-alpha.1/standalone/tailwind.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@1.14.0/dist/full.css" rel="stylesheet">
+</head>
+<body>
+<div class="flex flex-col justify-center items-center h-screen bg-gray-200">
+    <form th:action method="post" class="bg-white p-10 rounded-xl shadow-lg w-1/2">
+        <div class="mb-5">
+            <label for="title" class="block mb-2">제목</label>
+            <input type="text" id="title" name="title" th:value="${article.title}" class="input input-bordered input-accent w-full max-w-xs" />
+        </div>
+        <div class="mb-5">
+            <label for="body" class="block mb-2">본문</label>
+            <textarea id="body" name="body" th:text="${article.body}" class="textarea textarea-primary" rows="5"></textarea>
+        </div>
+        <div class="mb-5 flex items-center">
+            <input type="checkbox" id="isPublished" name="isPublished">
+            <label for="isPublished" class="ml-2">공개글 지정</label>
+        </div>
+        <button type="submit" class="btn btn-outline btn-success">게시글 작성</button>
+    </form>
+</div>
+</body>
+</html>

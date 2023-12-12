@@ -1,0 +1,25 @@
+<html layout:decorate="~{global/layout}" xmlns:th="http://www.w3.org/1999/html">
+<head>
+  <title>글 목록</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <h1>글 상세 페이지</h1>
+
+  <ul th:if="${article} != null">
+    <li th:each="article : ${article}">
+        <th:block th:text="|${article.id}번 : ${article.title}|"></th:block>
+        <th:block th:text="${article.body}"></th:block>
+    </li>
+    <li>
+      <a th:href="|/post/modify/${article.id}|">글 수정</a>
+      <a method="POST" class="btn-link"
+         onclick="return confirm('정말로 삭제하시겠습니까?');" th:href="|/post/delete/${article.id}|">
+        글 삭제
+      </a>
+    </li>
+  </ul>
+
+</div>
+</body>
+</html>

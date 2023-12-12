@@ -18,7 +18,7 @@ public class MemberController {
 
     @GetMapping("/member/join")
     public String showJoin(){
-        return "domain/member/member/join";
+        return "member/member/join";
     }
 
     @Data
@@ -34,13 +34,12 @@ public class MemberController {
 
         RsData<Member> join = memberService.join(joinForm.username, joinForm.password);
 
-        String msg = join.getMsg();
-
         return "redirect:/member/join";
     }
 
     @GetMapping("/member/login")
     public String showLogin(){
-        return "domain/member/member/login";
+        return "member/member/login";
+
     }
 }

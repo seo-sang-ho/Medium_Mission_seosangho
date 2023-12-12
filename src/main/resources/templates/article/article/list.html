@@ -1,0 +1,19 @@
+<html layout:decorate="~{global/layout}">
+<head>
+    <title>글 목록</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>게시글 목록</h1>
+
+    <ul th:if="${articles.size} > 0">
+        <li th:each="article : ${articles.reversed}">
+            <a class="link" th:href="|/post/${article.id}|">
+                <th:block th:text="|${article.id}번 : ${article.title}|"></th:block>
+                <th:block th:text="|by ${article.author.username}|"></th:block>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,14 +1,81 @@
 package com.ll.medium.domain.article.article.controller;
 
+import com.ll.medium.domain.article.article.entity.Article;
+import com.ll.medium.domain.article.article.service.ArticleService;
+import com.ll.medium.global.loginMember.LoginMember;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Validated
 public class ArticleController {
-    @GetMapping("/article/write")
-    public String writeArticle(){
-        return "domain/article/article/write";
+    private final ArticleService articleService;
+    private final LoginMember loginMember;
+
+    @GetMapping("/article/list")
+    public String articleList(Model model){
+        List<Article> articles = articleService.findAll();
+
+        model.addAttribute("articles",articles);
+
+        return "article/article/list";
+    }
+
+    @GetMapping("/post/write")
+    public String getArticle(){
+        return "article/article/write";
+    }
+
+    @Data
+    public static class ArticleForm{
+        @NotBlank
+        private String title;
+        @NotBlank
+        private String body;
+        private boolean isPublished;
+    }
+
+    @PostMapping("/post/write")
+    public String postArticle(@Valid ArticleForm articleForm){
+        articleService.write(loginMember.getMember(),articleForm.title,articleForm.body,articleForm.isPublished);
+        return "redirect:/article/list";
+    }
+
+    @GetMapping("/post/{id}")
+    public String detailArticle(Model model, @PathVariable Long id){
+        Article article = articleService.findById(id).get();
+
+        model.addAttribute("article",article);
+
+        return "article/article/detail";
+    }
+
+    @GetMapping("/post/modify/{id}")
+    public String getModify(Model model,@PathVariable Long id){
+        Article article = articleService.findById(id).get();
+
+        model.addAttribute("article", article);
+
+        return "article/article/modify";
+    }
+
+    @PostMapping("/post/delete/{id}")
+    public String deleteArticle(@PathVariable Long id){
+        Article article = articleService.findById(id).get();
+
+        articleService.delete(article);
+
+        return "redirect:/article/list";
     }
 }
