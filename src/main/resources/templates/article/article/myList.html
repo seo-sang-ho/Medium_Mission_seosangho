@@ -1,10 +1,10 @@
 <html layout:decorate="~{global/layout}">
 <head>
-    <title>글 목록</title>
+    <title>내 글 목록</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1>게시글 목록</h1>
+    <h1>내 게시글 목록</h1>
 
     <ul th:if="${articles.size} > 0">
         <li th:each="article : ${articles.reversed}">

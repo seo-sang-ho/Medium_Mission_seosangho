@@ -2,6 +2,7 @@ package com.ll.medium.domain.article.article.controller;
 
 import com.ll.medium.domain.article.article.entity.Article;
 import com.ll.medium.domain.article.article.service.ArticleService;
+import com.ll.medium.domain.member.member.entity.Member;
 import com.ll.medium.global.loginMember.LoginMember;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -23,7 +24,18 @@ public class ArticleController {
     private final ArticleService articleService;
     private final LoginMember loginMember;
 
-    @GetMapping("/article/list")
+    @GetMapping("/post/myList")
+    public String myList(Model model){
+        Member member = loginMember.getMember();
+
+        List<Article> articles = articleService.findByAuthorId(member.getId());
+
+        model.addAttribute("articles",articles);
+
+        return "article/article/myList";
+    }
+
+    @GetMapping("/post/list")
     public String articleList(Model model){
         List<Article> articles = articleService.findAll();
 
@@ -43,12 +55,12 @@ public class ArticleController {
         private String title;
         @NotBlank
         private String body;
-        private boolean isPublished;
+        private boolean a;
     }
 
     @PostMapping("/post/write")
     public String postArticle(@Valid ArticleForm articleForm){
-        articleService.write(loginMember.getMember(),articleForm.title,articleForm.body,articleForm.isPublished);
+        articleService.write(loginMember.getMember(),articleForm.title,articleForm.body,articleForm.a);
         return "redirect:/article/list";
     }
 
@@ -68,6 +80,22 @@ public class ArticleController {
         model.addAttribute("article", article);
 
         return "article/article/modify";
+    }
+    @Data
+    public static class ModifyForm{
+        @NotBlank
+        private String title;
+        @NotBlank
+        private String body;
+        private boolean isPublished;
+    }
+    @PostMapping("/post/modify/{id}")
+    public String modify(@PathVariable Long id, @Valid ModifyForm modifyForm){
+        Article article = articleService.findById(id).get();
+
+        articleService.modify(article,modifyForm.title,modifyForm.body,modifyForm.isPublished);
+
+        return "redirect:/article/list";
     }
 
     @PostMapping("/post/delete/{id}")

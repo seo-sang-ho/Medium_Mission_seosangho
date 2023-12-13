@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="light">
+<html lang="ko" data-theme="light" layout:decorate="~{global/layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,21 +8,21 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@1.14.0/dist/full.css" rel="stylesheet">
 </head>
 <body>
-<div class="flex flex-col justify-center items-center h-screen bg-gray-200">
-    <form th:action method="post" class="bg-white p-10 rounded-xl shadow-lg w-1/2">
+<div class="flex flex-col w-300 justify-center items-center" layout:fragment="content">
+    <form th:action method="post" class="bg-white p-10 rounded-xl shadow-xl w-1/2">
         <div class="mb-5">
             <label for="title" class="block mb-2">제목</label>
-            <input type="text" id="title" name="title" class="input input-bordered input-accent w-full max-w-xs" />
+            <input type="text" id="title" name="title" class="input input-bordered w-full max-w-xs" />
         </div>
         <div class="mb-5">
             <label for="body" class="block mb-2">본문</label>
-            <textarea id="body" name="body" class="textarea textarea-primary" rows="5"></textarea>
+            <textarea maxlength="10000" id="body" name="body" class="textarea textarea-bordered w-96" rows="5"></textarea>
         </div>
         <div class="mb-5 flex items-center">
-            <input type="checkbox" id="isPublished" name="isPublished">
-            <label for="isPublished" class="ml-2">공개글 지정</label>
+            <input type="checkbox" id="isPublished" name="a">
+            <label for="isPublished" class="ml-2">비공개</label>
         </div>
-        <button type="submit" class="btn btn-outline btn-success">게시글 작성</button>
+        <button type="submit" class="btn">게시글 작성</button>
     </form>
 </div>
 </body>

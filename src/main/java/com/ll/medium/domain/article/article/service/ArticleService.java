@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,8 @@ public class ArticleService {
     @Transactional
     public Article write(Member author, String title, String body,boolean isPublished) {
         Article article = Article.builder()
+                .createDate(LocalDateTime.now())
+                .modifyDate(LocalDateTime.now())
                 .author(author)
                 .title(title)
                 .body(body)
@@ -41,5 +44,16 @@ public class ArticleService {
     @Transactional
     public void delete(Article article) {
         articleRepository.delete(article);
+    }
+    @Transactional
+    public void modify(Article article, String title, String body, boolean isPublished) {
+        article.setTitle(title);
+        article.setBody(body);
+        article.setPublished(isPublished);
+    }
+
+    public List<Article> findByAuthorId(Long id) {
+        List<Article> articles = articleRepository.findByAuthorId(id);
+        return articles;
     }
 }
