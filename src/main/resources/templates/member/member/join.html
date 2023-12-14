@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" layout:decorate="~{global/layout}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -21,12 +21,25 @@
     </script>
 </head>
 <body>
-<form th:action method="post" onsubmit="return validateForm()" name="myForm">
-    <div>회원 가입화면</div>
-    이름 : <input type="text" name="username" placeholder="이름 입력">
-    비밀번호 : <input type="password" name="password" placeholder="비밀번호 입력">
-    비밀번호 재확인 : <input type="password" name="re-password" placeholder="비밀번호 재입력">
-    <button type="submit">가입</button>
+<div class="flex flex-col w-300 justify-center items-center" layout:fragment="content">
+<form th:action method="post" onsubmit="return validateForm()" name="myForm" class="bg-white p-10 rounded-xl shadow-xl w-1/2">
+    <div>회원 가입</div>
+    <div class="mb-5">
+        <label for="username" class="form-label">사용자ID</label>
+        <input type="text" name="username" id="username" class="form-control input input-bordered w-full max-w-xs">
+    </div>
+    <div class="mb-5">
+        <label for="password" class="form-label">비밀번호</label>
+        <input type="text" name="password" id="password" class="form-control input input-bordered w-full max-w-xs">
+    </div>
+    <div class="mb-5">
+        <label for="re-password" class="form-label">비밀번호 재확인</label>
+        <input type="password" name="re-password" id="re-password" class="form-control input input-bordered w-full max-w-xs">
+    </div>
+
+    <button type="submit" class="btn btn-primary">가입하기</button>
+
 </form>
+</div>
 </body>
 </html>

@@ -20,5 +20,5 @@ public class Article extends BaseEntity {
     private Member author;
     private String title;
     private String body;
-    private boolean isPublished; // 공개 여부
+    private boolean publish; // 공개 여부
 }

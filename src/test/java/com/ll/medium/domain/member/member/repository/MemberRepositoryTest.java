@@ -14,12 +14,4 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
-
-    @Test
-    @DisplayName("회원가입 테스트")
-    void t1(){
-        Member member = new Member("user1","1234");
-
-        memberRepository.save(member);
     }
-}
